@@ -15,12 +15,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import javax.swing.JFrame;
-
-
 import com.gcstudios.entities.Entity;
 import com.gcstudios.entities.Player;
-import com.gcstudios.graficos.Spritesheet;
-import com.gcstudios.graficos.UI;
+import com.gcstudios.graphics.Spritesheet;
+import com.gcstudios.graphics.UI;
 
 public class Game extends Canvas implements Runnable,KeyListener,MouseListener,MouseMotionListener{
 
@@ -28,8 +26,8 @@ public class Game extends Canvas implements Runnable,KeyListener,MouseListener,M
 	public static JFrame frame;
 	private Thread thread;
 	private boolean isRunning = true;
-	public static final int WIDTH = 160;
-	public static final int HEIGHT = 120;
+	public static final int WIDTH = 240;
+	public static final int HEIGHT = 160;
 	public static final int SCALE = 3;
 	
 	private BufferedImage image;
@@ -51,7 +49,7 @@ public class Game extends Canvas implements Runnable,KeyListener,MouseListener,M
 		initFrame();
 		image = new BufferedImage(WIDTH,HEIGHT,BufferedImage.TYPE_INT_RGB);
 		
-		//Inicializando objetos.
+		//Initializing the game
 		spritesheet = new Spritesheet("/spritesheet.png");
 		entities = new ArrayList<Entity>();
 		player = new Player(WIDTH/2 - 30,HEIGHT/2,16,16,2,spritesheet.getSprite(0,0,16,16));
@@ -102,9 +100,6 @@ public class Game extends Canvas implements Runnable,KeyListener,MouseListener,M
 		
 	}
 	
-
-
-	
 	public void render(){
 		BufferStrategy bs = this.getBufferStrategy();
 		if(bs == null){
@@ -115,7 +110,7 @@ public class Game extends Canvas implements Runnable,KeyListener,MouseListener,M
 		g.setColor(new Color(122,102,255));
 		g.fillRect(0, 0,WIDTH,HEIGHT);
 		
-		/*Renderização do jogo*/
+		/*Game Render*/
 		//Graphics2D g2 = (Graphics2D) g;
 		Collections.sort(entities,Entity.nodeSorter);
 		for(int i = 0; i < entities.size(); i++) {
@@ -160,59 +155,41 @@ public class Game extends Canvas implements Runnable,KeyListener,MouseListener,M
 		stop();
 	}
 
-	@Override
 	public void keyPressed(KeyEvent e) {
-		
 	
 	}
 
-	@Override
 	public void keyReleased(KeyEvent e) {
 		
-		
 	}
 
-	@Override
 	public void keyTyped(KeyEvent e) {
-		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
 	public void mouseClicked(MouseEvent arg0) {
-		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
 	public void mouseEntered(MouseEvent arg0) {
-		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
 	public void mouseExited(MouseEvent arg0) {
-		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
 	public void mousePressed(MouseEvent e) {	
 	}
 
-	@Override
 	public void mouseReleased(MouseEvent arg0) {
-		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
 	public void mouseDragged(MouseEvent arg0) {
-		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
 	public void mouseMoved(MouseEvent e) {
 	
 	}

@@ -11,7 +11,6 @@ public class AStar {
 	public static double lastTime = System.currentTimeMillis();
 	private static Comparator<Node> nodeSorter = new Comparator<Node>() {
 		
-		@Override
 		public int compare(Node n0,Node n1) {
 			if(n1.fCost < n0.fCost)
 				return +1;
@@ -40,8 +39,6 @@ public class AStar {
 			Collections.sort(openList,nodeSorter);
 			current = openList.get(0);
 			if(current.tile.equals(end)) {
-				//Chegamos no ponto final!
-				//Basta retornar o valor!
 				List<Node> path = new ArrayList<Node>();
 				while(current.parent != null) {
 					path.add(current);
