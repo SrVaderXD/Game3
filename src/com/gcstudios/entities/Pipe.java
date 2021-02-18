@@ -22,8 +22,15 @@ public class Pipe extends Entity{
 	}
 	
 	public void render(Graphics g) {
-		g.setColor(Color.green);
-		g.fillRect(this.getX(),this.getY(),width,height);
+		
+		if(sprite != null) {
+			g.drawImage(sprite, this.getX(), this.getY(), 16, height, null);
+		}
+		
+		else {
+			g.setColor(Color.green);
+			g.fillRect(this.getX(),this.getY(),width,height);
+		}
 	}
 
 }

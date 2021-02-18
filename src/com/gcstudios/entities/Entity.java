@@ -4,16 +4,9 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.util.Random;
-import com.gcstudios.main.Game;
 import com.gcstudios.world.Camera;
 
 public class Entity {
-	
-
-	public static BufferedImage MACA_SPRITE = Game.spritesheet.getSprite(0, 16, 16, 16);
-	public static BufferedImage ENEMY1 = Game.spritesheet.getSprite(16, 16,16,16);
-	public static BufferedImage ENEMY2 = Game.spritesheet.getSprite(32, 16,16,16);
-	public static BufferedImage ENEMY_GHOST = Game.spritesheet.getSprite(48, 16, 16, 16);
 	
 	protected double x;
 	protected double y;
@@ -25,7 +18,7 @@ public class Entity {
 	
 	public boolean debug = false;
 	
-	private BufferedImage sprite;
+	protected BufferedImage sprite;
 	
 	public static Random rand = new Random();
 	
@@ -77,8 +70,6 @@ public class Entity {
 	
 	public void render(Graphics g) {
 		g.drawImage(sprite,this.getX() - Camera.x,this.getY() - Camera.y,null);
-		//g.setColor(Color.red);
-		//g.fillRect(this.getX() + maskx - Camera.x,this.getY() + masky - Camera.y,mwidth,mheight);
 	}
 	
 }

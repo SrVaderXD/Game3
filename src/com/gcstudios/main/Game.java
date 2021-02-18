@@ -55,7 +55,7 @@ public class Game extends Canvas implements Runnable,KeyListener,MouseListener,M
 		//Initializing the game
 		spritesheet = new Spritesheet("/spritesheet.png");
 		entities = new ArrayList<Entity>();
-		player = new Player(WIDTH/2-30,HEIGHT/2,16,16,2,spritesheet.getSprite(0,0,16,16));
+		player = new Player(WIDTH/2-30,HEIGHT/2,14,14,2,spritesheet.getSprite(0,0,16,16));
 		ui = new UI();
 		pipeGen = new PipeGenerator();
 		

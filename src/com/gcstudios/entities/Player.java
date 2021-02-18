@@ -1,5 +1,6 @@
 package com.gcstudios.entities;
 
+import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 import com.gcstudios.main.Game;
@@ -9,9 +10,12 @@ public class Player extends Entity{
 	
 	public boolean isPressed = false;
 	
+	private BufferedImage falling;
 	
 	public Player(int x, int y, int width, int height,double speed,BufferedImage sprite) {
 		super(x, y, width, height,speed,sprite);
+		
+		falling = Game.spritesheet.getSprite(16, 0, 16, 16);
 	}
 	
 	public void tick(){
@@ -21,10 +25,11 @@ public class Player extends Entity{
 		}
 		
 		else {
-			y+=-2;
+			if(y > 0)
+				y+=-2;
 		}
 		
-		if(y > Game.HEIGHT || y < -16) {
+		if(y > Game.HEIGHT) {
 			Game.restart();
 		}
 		
@@ -39,5 +44,15 @@ public class Player extends Entity{
 				}
 			}
 		}
-	}	
+	}
+	
+	public void render(Graphics g) {
+		if(!isPressed) {
+			g.drawImage(falling, this.getX(),this.getY(),null);
+		}
+		
+		else {
+			g.drawImage(sprite, this.getX(),this.getY(),null);
+		}
+	}
 }

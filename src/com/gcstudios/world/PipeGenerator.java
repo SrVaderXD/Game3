@@ -12,11 +12,13 @@ public class PipeGenerator {
 	public void tick() {
 		time++;
 		if(time == targetTime) {
-			int y1 = Entity.rand.nextInt(70 - 30) + 30;
-			Pipe pipe1 = new Pipe(Game.WIDTH,0,20,y1,0,null);
+			// upper pipe
+			int y1 = Entity.rand.nextInt(60 - 30) + 35;
+			Pipe pipe1 = new Pipe(Game.WIDTH,0,20,y1,0,Game.spritesheet.getSprite(0, 32, 20, 16));
 			
-			int y2 = Entity.rand.nextInt(70 - 30) + 30;
-			Pipe pipe2 = new Pipe(Game.WIDTH,Game.HEIGHT-y2,20,y2,0,null);
+			// lower pipe
+			int y2 = Entity.rand.nextInt(60 - 30) + 35;
+			Pipe pipe2 = new Pipe(Game.WIDTH,Game.HEIGHT-y2,20,y2,0,Game.spritesheet.getSprite(0, 16, 20, 16));
 			
 			Game.entities.add(pipe1);
 			Game.entities.add(pipe2);
