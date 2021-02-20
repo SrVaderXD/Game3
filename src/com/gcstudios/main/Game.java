@@ -29,7 +29,7 @@ public class Game extends Canvas implements Runnable,KeyListener,MouseListener,M
 	private Thread thread;
 	private boolean isRunning = true;
 	public static final int WIDTH = 240;
-	public static final int HEIGHT = 160;
+	public static final int HEIGHT = 180;
 	public static final int SCALE = 3;
 	
 	private BufferedImage image;
@@ -41,6 +41,8 @@ public class Game extends Canvas implements Runnable,KeyListener,MouseListener,M
 	public static PipeGenerator pipeGen;
 	
 	public UI ui;
+	
+	private Spritesheet backGround;
 	
 	public static double score = 0;
 	
@@ -57,6 +59,7 @@ public class Game extends Canvas implements Runnable,KeyListener,MouseListener,M
 		entities = new ArrayList<Entity>();
 		player = new Player(WIDTH/2-30,HEIGHT/2,14,14,2,spritesheet.getSprite(0,0,16,16));
 		ui = new UI();
+		backGround = new Spritesheet("/background.png");
 		pipeGen = new PipeGenerator();
 		
 		entities.add(player);
@@ -110,8 +113,7 @@ public class Game extends Canvas implements Runnable,KeyListener,MouseListener,M
 			return;
 		}
 		Graphics g = image.getGraphics();
-		g.setColor(new Color(122,102,255));
-		g.fillRect(0, 0,WIDTH,HEIGHT);
+		g.drawImage(backGround.getSprite(0, 0, 240, 180), 0, 0,null);
 		
 		/*Game Render*/
 		//Graphics2D g2 = (Graphics2D) g;
