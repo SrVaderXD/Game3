@@ -16,6 +16,7 @@ public class Player extends Entity{
 		super(x, y, width, height,speed,sprite);
 		
 		falling = Game.spritesheet.getSprite(16, 0, 16, 16);
+		depth = 2;
 	}
 	
 	public void tick(){
@@ -29,7 +30,7 @@ public class Player extends Entity{
 				y+=-2;
 		}
 		
-		if(y > Game.HEIGHT) {
+		if(y > Game.HEIGHT - 35) {
 			Game.restart();
 		}
 		

@@ -10,6 +10,7 @@ public class Pipe extends Entity{
 	
 	public Pipe(double x,double y,int width,int height,double speed,BufferedImage sprite) {
 		super(x,y,width,height,speed,sprite);
+		depth = 0;
 	}
 
 	public void tick() {

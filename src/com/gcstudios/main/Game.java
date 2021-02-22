@@ -112,15 +112,21 @@ public class Game extends Canvas implements Runnable,KeyListener,MouseListener,M
 			this.createBufferStrategy(3);
 			return;
 		}
-		Graphics g = image.getGraphics();
-		g.drawImage(backGround.getSprite(0, 0, 240, 180), 0, 0,null);
 		
-		/*Game Render*/
-		//Graphics2D g2 = (Graphics2D) g;
+		Graphics g = image.getGraphics();
+		
+		
+		//BackGround render
+		
+		g.drawImage(backGround.getSprite(0, 0, 240, 180), 0, 0,null); 
+		
+		//Game Render
+		
 		for(int i = 0; i < entities.size(); i++) {
 			Entity e = entities.get(i);
 			e.render(g);
 		}
+		
 		/***/
 		g.dispose();
 		g = bs.getDrawGraphics();
