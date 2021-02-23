@@ -16,7 +16,7 @@ public class Player extends Entity{
 		super(x, y, width, height,speed,sprite);
 		
 		falling = Game.spritesheet.getSprite(16, 0, 16, 16);
-		depth = 2;
+		depth = 1;
 	}
 	
 	public void tick(){

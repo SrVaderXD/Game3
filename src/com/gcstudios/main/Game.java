@@ -1,7 +1,6 @@
 package com.gcstudios.main;
 
 import java.awt.Canvas;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
@@ -13,9 +12,7 @@ import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.swing.JFrame;
-
 import com.gcstudios.entities.Entity;
 import com.gcstudios.entities.Player;
 import com.gcstudios.graphics.Spritesheet;
@@ -57,7 +54,7 @@ public class Game extends Canvas implements Runnable,KeyListener,MouseListener,M
 		//Initializing the game
 		spritesheet = new Spritesheet("/spritesheet.png");
 		entities = new ArrayList<Entity>();
-		player = new Player(WIDTH/2-30,HEIGHT/2,14,14,2,spritesheet.getSprite(0,0,16,16));
+		player = new Player(WIDTH/2-30,HEIGHT/2,12,8,2,spritesheet.getSprite(0,0,16,16));
 		ui = new UI();
 		backGround = new Spritesheet("/background.png");
 		pipeGen = new PipeGenerator();
