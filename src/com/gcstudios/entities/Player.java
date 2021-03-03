@@ -10,24 +10,30 @@ public class Player extends Entity{
 	
 	public boolean isPressed = false;
 	
+	private double gravity = 0.3;
+	private double vspd = 0;
+	
 	private BufferedImage falling;
 	
 	public Player(int x, int y, int width, int height,double speed,BufferedImage sprite) {
 		super(x, y, width, height,speed,sprite);
 		
 		falling = Game.spritesheet.getSprite(16, 0, 16, 16);
-		depth = 1;
+		depth = 2;
 	}
 	
 	public void tick(){
 		//Gravity
+		vspd+=gravity;
 		if(!isPressed) {
-			y+=2;
+			y+=vspd;
 		}
 		
 		else {
-			if(y > 0)
-				y+=-2;
+			if(y > 0) {
+				vspd = -2;
+				y+=vspd;
+			}
 		}
 		
 		if(y > Game.HEIGHT - 35) {
