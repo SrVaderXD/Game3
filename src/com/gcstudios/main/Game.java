@@ -1,8 +1,11 @@
 package com.gcstudios.main;
 
 import java.awt.Canvas;
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -43,6 +46,18 @@ public class Game extends Canvas implements Runnable,KeyListener,MouseListener,M
 	
 	public static double score = 0;
 	
+	public static String GameState = "Normal";
+	
+	public Menu menu;
+	public End end;
+	public Tutorial tuto;
+	
+	public static boolean restart = false;
+	
+	public static boolean GameOver;
+	
+	private int framesGameOver = 0;
+	
 	public Game(){
 		addKeyListener(this);
 		addMouseListener(this);
@@ -58,8 +73,10 @@ public class Game extends Canvas implements Runnable,KeyListener,MouseListener,M
 		ui = new UI();
 		backGround = new Spritesheet("/background.png");
 		pipeGen = new PipeGenerator();
-		
 		entities.add(player);
+		menu = new Menu();
+		end = new End();
+		tuto = new Tutorial();
 		
 	}
 	
@@ -95,11 +112,43 @@ public class Game extends Canvas implements Runnable,KeyListener,MouseListener,M
 	
 	public void tick(){
 		
-		pipeGen.tick();
+		if(GameState == "Normal") {
 		
-		for(int i = 0; i < entities.size(); i++) {
-			Entity e = entities.get(i);
-			e.tick();
+			pipeGen.tick();
+			
+			for(int i = 0; i < entities.size(); i++) {
+				Entity e = entities.get(i);
+				e.tick();
+			}
+		}
+		
+		else if(GameState == "GameOver") {
+			entities.clear();
+			framesGameOver++;
+			if(framesGameOver == 30) {
+				framesGameOver = 0;
+				if(GameOver)
+					GameOver = false;
+				else
+					GameOver = true;
+			}
+		}
+		
+		else if(GameState == "Menu") {
+			menu.tick();
+		}
+		
+		else if(GameState == "Tutorial") {
+			tuto.tick();
+		}
+		
+		else if(GameState == "End") {
+			entities.clear();
+			end.tick();
+		}
+		
+		if(restart) {
+			//TODO 
 		}
 	}
 	
@@ -129,6 +178,33 @@ public class Game extends Canvas implements Runnable,KeyListener,MouseListener,M
 		g = bs.getDrawGraphics();
 		g.drawImage(image, 0, 0,WIDTH*SCALE,HEIGHT*SCALE,null);
 		ui.render(g);
+		
+		if(GameState == "GameOver") {
+			Graphics2D g2 = (Graphics2D)g;
+			g2.setColor(new Color(0,0,0,200));
+			g2.fillRect(0, 0, WIDTH*SCALE, HEIGHT*SCALE);
+			g.setFont(new Font("arial", Font.BOLD, 72));
+			g.setColor(Color.white);
+			g.drawString("GAME OVER", WIDTH/2 - 30, HEIGHT/2 + 130);
+			g.setFont(new Font("arial", Font.BOLD, 36));
+			g.setColor(Color.white);
+			if(GameOver)
+				g.drawString("Press 'R' to restart", WIDTH/2 + 30, HEIGHT/2 + 170);
+		}
+		
+		else if(GameState == "Menu") {
+			menu.render(g);
+		}
+		
+		else if(GameState == "Tutorial") {
+			tuto.render(g);
+		}
+		
+		else if(GameState == "End") {
+			entities.clear();
+			end.render(g);
+		}
+		
 		bs.show();
 	}
 	
@@ -174,12 +250,102 @@ public class Game extends Canvas implements Runnable,KeyListener,MouseListener,M
 		if(e.getKeyCode() == KeyEvent.VK_SPACE) {
 			player.isPressed = true;
 		}
+		
+		if(e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_W){
+			
+			if(GameState == "Menu")
+				menu.up = true;
+			
+			if(GameState == "End")
+				end.up = true;
+			
+			if(GameState == "Tutorial")
+				tuto.up = true;
+			
+		}else if(e.getKeyCode() == KeyEvent.VK_DOWN || e.getKeyCode() == KeyEvent.VK_S) {
+			
+			if(GameState == "Menu")
+				menu.down = true;
+			
+			if(GameState == "End")
+				end.down = true;
+			
+			if(GameState == "Tutorial")
+				tuto.down = true;
+		}
+		
+		if(e.getKeyCode() == KeyEvent.VK_R) {
+				restart = true;
+		}
+		
+		if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+			if(GameState == "Menu")
+				menu.enter = true;
+			
+			if(GameState == "End")
+				end.enter = true;
+			
+			if(GameState == "Tutorial")
+				tuto.enter = true;
+		}
+		
+		if(e.getKeyCode() == KeyEvent.VK_ESCAPE){
+			if(GameState == "Normal") {
+				GameState = "Menu";
+				menu.pause = true;
+			}
+		}
 			
 	}
 
 	public void keyReleased(KeyEvent e) {
 		if(e.getKeyCode() == KeyEvent.VK_SPACE) {
 			player.isPressed = false;
+		}
+		
+		if(e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_W){
+			
+			if(GameState == "Menu")
+				menu.up = false;
+			
+			if(GameState == "End")
+				end.up = false;
+			
+			if(GameState == "Tutorial")
+				tuto.up = false;
+			
+		}else if(e.getKeyCode() == KeyEvent.VK_DOWN || e.getKeyCode() == KeyEvent.VK_S) {
+			
+			if(GameState == "Menu")
+				menu.down = false;
+			
+			if(GameState == "End")
+				end.down = false;
+			
+			if(GameState == "Tutorial")
+				tuto.down = false;
+		}
+		
+		if(e.getKeyCode() == KeyEvent.VK_R) {
+			restart = false;
+		}
+		
+		if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+			if(GameState == "Menu")
+				menu.enter = false;
+			
+			if(GameState == "End")
+				end.enter = false;
+			
+			if(GameState == "Tutorial")
+				tuto.enter = false;
+		}
+		
+		if(e.getKeyCode() == KeyEvent.VK_ESCAPE){
+			if(GameState == "Normal") {
+				GameState = "Menu";
+				menu.pause = false;
+			}
 		}
 	}
 
@@ -213,6 +379,4 @@ public class Game extends Canvas implements Runnable,KeyListener,MouseListener,M
 	public void mouseMoved(MouseEvent e) {
 	
 	}
-
-	
 }
