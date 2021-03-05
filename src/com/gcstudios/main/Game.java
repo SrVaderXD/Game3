@@ -46,7 +46,7 @@ public class Game extends Canvas implements Runnable,KeyListener,MouseListener,M
 	
 	public static double score = 0;
 	
-	public static String GameState = "Normal";
+	public static String GameState = "Menu";
 	
 	public Menu menu;
 	public End end;
@@ -81,7 +81,7 @@ public class Game extends Canvas implements Runnable,KeyListener,MouseListener,M
 	}
 	
 	public void initFrame(){
-		frame = new JFrame("Flappy Bird");
+		frame = new JFrame("Flop Bird");
 		frame.add(this);
 		frame.setResizable(false);
 		frame.pack();
@@ -111,7 +111,7 @@ public class Game extends Canvas implements Runnable,KeyListener,MouseListener,M
 	}
 	
 	public void tick(){
-		
+				
 		if(GameState == "Normal") {
 		
 			pipeGen.tick();
@@ -148,7 +148,8 @@ public class Game extends Canvas implements Runnable,KeyListener,MouseListener,M
 		}
 		
 		if(restart) {
-			//TODO 
+			 GameState = "Normal";
+			 restart();
 		}
 	}
 	
@@ -177,7 +178,9 @@ public class Game extends Canvas implements Runnable,KeyListener,MouseListener,M
 		g.dispose();
 		g = bs.getDrawGraphics();
 		g.drawImage(image, 0, 0,WIDTH*SCALE,HEIGHT*SCALE,null);
-		ui.render(g);
+		
+		if(GameState != "GameOver" && GameState != "Menu")
+			ui.render(g);
 		
 		if(GameState == "GameOver") {
 			Graphics2D g2 = (Graphics2D)g;
@@ -185,11 +188,11 @@ public class Game extends Canvas implements Runnable,KeyListener,MouseListener,M
 			g2.fillRect(0, 0, WIDTH*SCALE, HEIGHT*SCALE);
 			g.setFont(new Font("arial", Font.BOLD, 72));
 			g.setColor(Color.white);
-			g.drawString("GAME OVER", WIDTH/2 - 30, HEIGHT/2 + 130);
+			g.drawString("GAME OVER", WIDTH/2 + 15, HEIGHT/2 + 130);
 			g.setFont(new Font("arial", Font.BOLD, 36));
 			g.setColor(Color.white);
 			if(GameOver)
-				g.drawString("Press 'R' to restart", WIDTH/2 + 30, HEIGHT/2 + 170);
+				g.drawString("Press 'R' to restart", WIDTH/2 + 73, HEIGHT/2 + 170);
 		}
 		
 		else if(GameState == "Menu") {
@@ -243,6 +246,7 @@ public class Game extends Canvas implements Runnable,KeyListener,MouseListener,M
 		player = new Player(WIDTH/2-30,HEIGHT/2,16,16,2,spritesheet.getSprite(0,0,16,16));
 		entities.clear();
 		entities.add(player);
+		restart = false;
 		return;
 	}
 
@@ -275,6 +279,7 @@ public class Game extends Canvas implements Runnable,KeyListener,MouseListener,M
 		}
 		
 		if(e.getKeyCode() == KeyEvent.VK_R) {
+			if(GameState != "Normal" && GameState != "Menu")
 				restart = true;
 		}
 		
@@ -327,7 +332,8 @@ public class Game extends Canvas implements Runnable,KeyListener,MouseListener,M
 		}
 		
 		if(e.getKeyCode() == KeyEvent.VK_R) {
-			restart = false;
+			if(GameState != "Normal" && GameState != "Menu")
+				restart = false;
 		}
 		
 		if(e.getKeyCode() == KeyEvent.VK_ENTER) {

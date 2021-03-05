@@ -37,7 +37,7 @@ public class Player extends Entity{
 		}
 		
 		if(y > Game.HEIGHT - 35) {
-			Game.restart();
+			Game.GameState = "GameOver";
 		}
 		
 		//Collision with pipe
@@ -46,8 +46,8 @@ public class Player extends Entity{
 			
 			if( e != this) {
 				if(Entity.isColidding(this, e)) {
-					//iscolliding gameover
-					Game.restart();
+					//iscolliding - gameover
+					Game.GameState = "GameOver";
 				}
 			}
 		}

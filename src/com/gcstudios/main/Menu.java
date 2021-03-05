@@ -57,9 +57,9 @@ public class Menu {
 		g2.setColor(new Color(0,0,0,200));
 		g2.fillRect(0, 0, Game.WIDTH*Game.SCALE, Game.HEIGHT*Game.SCALE);
 			
-		g.setColor(Color.yellow);
+		g.setColor(Color.green);
 		g.setFont(new Font("arial", Font.BOLD, 56));
-		g.drawString("Pacman", Game.WIDTH/2 + 60, Game.HEIGHT/2 - 30);
+		g.drawString("Flop Bird", Game.WIDTH/2 + 110, Game.HEIGHT/2 - 30);
 			
 		//Menu options
 		g.setColor(Color.white);
@@ -67,26 +67,32 @@ public class Menu {
 			
 			
 		if(!pause)
-			g.drawString("Start Game", Game.WIDTH/2 + 80, Game.HEIGHT/2 + 70);
+			g.drawString("Start Game", Game.WIDTH/2 + 130, Game.HEIGHT/2 + 70);
 			
-		else
-			g.drawString("Resume", Game.WIDTH/2 + 100, Game.HEIGHT/2 + 70);
+		else {
+			g.drawString("Resume", Game.WIDTH/2 + 150, Game.HEIGHT/2 + 70);
 			
-		g.drawString("How to play", Game.WIDTH/2 + 80, Game.HEIGHT/2 + 190);
+			g.setFont(new Font("arial", Font.BOLD, 20));
+			g.drawString("SCORE : "+(int)Game.score, Game.WIDTH/2 + 430, Game.HEIGHT/2 + 430);
+		}
+		
+		g.setFont(new Font("arial", Font.BOLD, 36));
+		
+		g.drawString("How to play", Game.WIDTH/2 + 130, Game.HEIGHT/2 + 190);
 			
-		g.drawString("Exit", Game.WIDTH/2 + 140, Game.HEIGHT/2 + 310);
+		g.drawString("Exit", Game.WIDTH/2 + 190, Game.HEIGHT/2 + 310);
 		
 		
 		if(options[currentOption] == "Start Game") {
-			g.drawString(">", Game.WIDTH/2 + 45, Game.HEIGHT/2 + 43);
+			g.drawString(">", Game.WIDTH/2 + 95, Game.HEIGHT/2 + 70);
 		}
 			
 		else if(options[currentOption] == "How to play") {
-			g.drawString(">", Game.WIDTH/2 + 45, Game.HEIGHT/2 + 163);
+			g.drawString(">", Game.WIDTH/2 + 95, Game.HEIGHT/2 + 190);
 		}
 			
 		else if(options[currentOption] == "Exit") {
-			g.drawString(">", Game.WIDTH/2 + 105, Game.HEIGHT/2 + 283);
+			g.drawString(">", Game.WIDTH/2 + 155, Game.HEIGHT/2 + 310);
 		}
 	}
 }

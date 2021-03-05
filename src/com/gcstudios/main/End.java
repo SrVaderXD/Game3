@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 
-public class End {
+public class End { //TODO change to difficulty selection
 		
 	public String[] options = {"Play again", "Exit"};
 	
