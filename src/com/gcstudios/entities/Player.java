@@ -24,20 +24,42 @@ public class Player extends Entity{
 	
 	public void tick(){
 		//Gravity
-		vspd+=gravity;
-		if(!isPressed) {
-			y+=vspd;
-		}
 		
-		else {
-			if(y > 0) {
-				vspd = -2;
-				y+=vspd;
+		if(Game.difficulty == 0) {
+		
+			vspd+=gravity;
+			if(!isPressed) {
+				y+=2;
+			}
+			
+			else {
+				if(y > 0) {
+					y-=2;
+				}
+			}
+			
+			if(y > Game.HEIGHT - 35) {
+				Game.GameState = "GameOver";
 			}
 		}
 		
-		if(y > Game.HEIGHT - 35) {
-			Game.GameState = "GameOver";
+		else if(Game.difficulty == 1) {
+			
+			vspd+=gravity;
+			if(!isPressed) {
+				y+=vspd;
+			}
+			
+			else {
+				if(y > 0) {
+					vspd = -2;
+					y+=vspd;
+				}
+			}
+			
+			if(y > Game.HEIGHT - 35) {
+				Game.GameState = "GameOver";
+			}
 		}
 		
 		//Collision with pipe

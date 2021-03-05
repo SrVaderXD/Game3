@@ -8,9 +8,6 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
@@ -22,7 +19,7 @@ import com.gcstudios.graphics.Spritesheet;
 import com.gcstudios.graphics.UI;
 import com.gcstudios.world.PipeGenerator;
 
-public class Game extends Canvas implements Runnable,KeyListener,MouseListener,MouseMotionListener{
+public class Game extends Canvas implements Runnable,KeyListener{
 
 	private static final long serialVersionUID = 1L;
 	public static JFrame frame;
@@ -49,7 +46,7 @@ public class Game extends Canvas implements Runnable,KeyListener,MouseListener,M
 	public static String GameState = "Menu";
 	
 	public Menu menu;
-	public End end;
+	public DifSelect difSelec;
 	public Tutorial tuto;
 	
 	public static boolean restart = false;
@@ -58,10 +55,10 @@ public class Game extends Canvas implements Runnable,KeyListener,MouseListener,M
 	
 	private int framesGameOver = 0;
 	
+	public static int difficulty = 0;
+	
 	public Game(){
 		addKeyListener(this);
-		addMouseListener(this);
-		addMouseMotionListener(this);
 		setPreferredSize(new Dimension(WIDTH*SCALE,HEIGHT*SCALE));
 		initFrame();
 		image = new BufferedImage(WIDTH,HEIGHT,BufferedImage.TYPE_INT_RGB);
@@ -75,7 +72,7 @@ public class Game extends Canvas implements Runnable,KeyListener,MouseListener,M
 		pipeGen = new PipeGenerator();
 		entities.add(player);
 		menu = new Menu();
-		end = new End();
+		difSelec = new DifSelect();
 		tuto = new Tutorial();
 		
 	}
@@ -142,9 +139,8 @@ public class Game extends Canvas implements Runnable,KeyListener,MouseListener,M
 			tuto.tick();
 		}
 		
-		else if(GameState == "End") {
-			entities.clear();
-			end.tick();
+		else if(GameState == "Selection") {
+			difSelec.tick();
 		}
 		
 		if(restart) {
@@ -203,9 +199,8 @@ public class Game extends Canvas implements Runnable,KeyListener,MouseListener,M
 			tuto.render(g);
 		}
 		
-		else if(GameState == "End") {
-			entities.clear();
-			end.render(g);
+		else if(GameState == "Selection") {
+			difSelec.render(g);
 		}
 		
 		bs.show();
@@ -260,8 +255,8 @@ public class Game extends Canvas implements Runnable,KeyListener,MouseListener,M
 			if(GameState == "Menu")
 				menu.up = true;
 			
-			if(GameState == "End")
-				end.up = true;
+			if(GameState == "Selection")
+				difSelec.up = true;
 			
 			if(GameState == "Tutorial")
 				tuto.up = true;
@@ -271,8 +266,8 @@ public class Game extends Canvas implements Runnable,KeyListener,MouseListener,M
 			if(GameState == "Menu")
 				menu.down = true;
 			
-			if(GameState == "End")
-				end.down = true;
+			if(GameState == "Selection")
+				difSelec.down = true;
 			
 			if(GameState == "Tutorial")
 				tuto.down = true;
@@ -287,8 +282,8 @@ public class Game extends Canvas implements Runnable,KeyListener,MouseListener,M
 			if(GameState == "Menu")
 				menu.enter = true;
 			
-			if(GameState == "End")
-				end.enter = true;
+			if(GameState == "Selection")
+				difSelec.enter = true;
 			
 			if(GameState == "Tutorial")
 				tuto.enter = true;
@@ -313,8 +308,8 @@ public class Game extends Canvas implements Runnable,KeyListener,MouseListener,M
 			if(GameState == "Menu")
 				menu.up = false;
 			
-			if(GameState == "End")
-				end.up = false;
+			if(GameState == "Selection")
+				difSelec.up = false;
 			
 			if(GameState == "Tutorial")
 				tuto.up = false;
@@ -324,8 +319,8 @@ public class Game extends Canvas implements Runnable,KeyListener,MouseListener,M
 			if(GameState == "Menu")
 				menu.down = false;
 			
-			if(GameState == "End")
-				end.down = false;
+			if(GameState == "Selection")
+				difSelec.down = false;
 			
 			if(GameState == "Tutorial")
 				tuto.down = false;
@@ -340,8 +335,8 @@ public class Game extends Canvas implements Runnable,KeyListener,MouseListener,M
 			if(GameState == "Menu")
 				menu.enter = false;
 			
-			if(GameState == "End")
-				end.enter = false;
+			if(GameState == "Selection")
+				difSelec.enter = false;
 			
 			if(GameState == "Tutorial")
 				tuto.enter = false;
@@ -357,32 +352,5 @@ public class Game extends Canvas implements Runnable,KeyListener,MouseListener,M
 
 	public void keyTyped(KeyEvent e) {
 		
-	}
-
-	public void mouseClicked(MouseEvent arg0) {
-		
-	}
-
-	public void mouseEntered(MouseEvent arg0) {
-		
-	}
-
-	public void mouseExited(MouseEvent arg0) {
-		
-	}
-
-	public void mousePressed(MouseEvent e) {	
-	}
-
-	public void mouseReleased(MouseEvent arg0) {
-		
-	}
-
-	public void mouseDragged(MouseEvent arg0) {
-		
-	}
-
-	public void mouseMoved(MouseEvent e) {
-	
 	}
 }
