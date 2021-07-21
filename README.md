@@ -1,4 +1,4 @@
 # Game3
-Game03 from DankiCode course. - Finished
+Game03. - Finished
 
 A Flappy Bird copy.
